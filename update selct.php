@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<?php
+$HostName="localhost";
+$db_name="school";
+$LoginName="root";
+$LoginPassword="";
+
+   
+?>
+ <?php
+	$con = mysql_connect($HostName,$LoginName,$LoginPassword);
+	if (!$con){die('Could not connect: ' . mysql_error());}
+  	mysql_select_db($db_name , $con);
+		mysql_query("set names 'utf8';");
+	$sql = "SELECT * FROM student" ;
+	
+	$result = mysql_query($sql,$con) ;
+	?>
+
+  <?php
+	while($row = mysql_fetch_array($result)){
+	?>
+    <form name="myform" method="get" action="update.php">
+<input type="hidden" name="stu_id" value="<?php echo "$row[s_id]"?>" />
+  name <input type="text" name="stu_name" value="<?php echo "$row[s_name]"?>" />
+
+
+
+ age<input type="text" name="stu_age" value=" <?php echo "$row[s_age]"?>">
+ gender<input type="radio" name="stu_gender" value=" <?php echo "$row[s_gender]"?>">
+  <input type="submit" value="edit" /><hr />
+</form>
+  <?php
+	;}
+	 mysql_close($con);
+	?>
+
+</body>
+</html>
